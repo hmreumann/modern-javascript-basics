@@ -1,38 +1,15 @@
 'use strict';
 
-async function init(){
-    const time = Date.now()
+let fruit = new Map();
 
-    const userPromise = getUserData()
-    const messagePromise = getWelcomeMessage()
+fruit.set(1, 'Apple')
+fruit.set(2, 'Orange')
+fruit.set(3, 'Banana')
 
-    document.getElementById('output').innerHTML = `0: init`
-    const user = await userPromise
-    document.getElementById('output').innerHTML += `<br> ${Date.now() - time}: ${user.name} - ${user.email}`
-    const message = await messagePromise
-    document.getElementById('output').innerHTML += `<br> ${Date.now() - time}: ${message}`
-}
+let output = document.getElementById('output')
 
-function getUserData(){
-    return new Promise((resolve, reject) => {
-        let user = {
-            name: 'Hernán',
-            email: 'hmreumann@hotmail.com'
-        }
+fruit.delete(2)
 
-        setTimeout(() => {
-            resolve(user)
-        }, 2000)
-    })
-}
-
-function getWelcomeMessage()
-{
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve('Welcome to our async program!!')
-        }, 2000)
-    })
-}
-
-init()
+fruit.forEach(item => {
+    output.innerHTML += `<br> ${item}`
+})
