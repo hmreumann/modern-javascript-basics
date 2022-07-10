@@ -1,32 +1,38 @@
 'use strict';
 
-let myPromise = new Promise((resolve, reject) => {
-    let user = {
-        name: 'Hernan',
-        email: 'hernan@gmail.com'
-    }
+async function init(){
+    const time = Date.now()
 
-    setTimeout(() => {
-        resolve(user)
-        // reject('We had an error')
-    }, 3000)
-})
+    const userPromise = getUserData()
+    const messagePromise = getWelcomeMessage()
 
-let getAdditionalDetails = user => {
+    document.getElementById('output').innerHTML = `0: init`
+    const user = await userPromise
+    document.getElementById('output').innerHTML += `<br> ${Date.now() - time}: ${user.name} - ${user.email}`
+    const message = await messagePromise
+    document.getElementById('output').innerHTML += `<br> ${Date.now() - time}: ${message}`
+}
+
+function getUserData(){
     return new Promise((resolve, reject) => {
-        document.getElementById('output').innerHTML = `${user.name} - ${user.email}`
-
-        user.favoriteColor = 'Red'
+        let user = {
+            name: 'Hernán',
+            email: 'hmreumann@hotmail.com'
+        }
 
         setTimeout(() => {
             resolve(user)
-        }, 3000)
+        }, 2000)
     })
 }
 
-myPromise
-    .then(getAdditionalDetails)
-    .then((user) => document.getElementById('output').innerHTML = `${user.name} - ${user.email} - ${user.favoriteColor}`)
-    .catch((error) => document.getElementById('output').innerHTML = error)
+function getWelcomeMessage()
+{
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('Welcome to our async program!!')
+        }, 2000)
+    })
+}
 
-document.getElementById('output').innerHTML = 'Waiting for the promise response.'
+init()
