@@ -2,50 +2,54 @@
 
 let output = document.getElementById('output')
 
-// let fruit = new Map();
+let fruits = [
+    'Manzana',
+    'Naranja',
+    'Banana',
+    'Limon',
+    'Melon',
+    'Cereza',
+    'Frambuesa'
+]
 
-// fruit.set(1, 'Apple')
-// fruit.set(2, 'Orange')
-// fruit.set(3, 'Banana')
+// let fruitsThatContainE = []
 
-
-// fruit.delete(2)
-
-// fruit.forEach(item => {
-//     output.innerHTML += `<br> ${item}`
+// fruits.forEach(function(fruit){
+//     if(fruit.includes('e')){
+//         fruitsThatContainE.push(fruit)
+//     }
 // })
 
-const users = new Map();
+let fruitsThatContainE = fruits.filter(f => f.includes('e'))
 
-const hernanObject = {
-    name: 'Hernán',
-    email: 'hmreumann@hotmail.com'
-}
+output.innerHTML = fruitsThatContainE.join(', ')
 
-users.set(hernanObject, function(user) {
-    output.innerHTML += `${user.name} - ${user.email} <br>`
-})
+// Reduce example
 
-users.set({
-    name: 'Jose',
-    email: 'jose@hotmail.com'
-}, function(user) {
-    output.innerHTML += `${user.email} - ${user.name} <br>`
-})
+let users = [
+    {
+        name: 'Hernán',
+        email: 'hmreumann@hotmail.com',
+        stars: 4
+    },
+    {
+        name: 'Luis',
+        email: 'lmreumann@hotmail.com',
+        stars: 9
+    },
+    {
+        name: 'Estefi',
+        email: 'tefi@hotmail.com',
+        stars: 85
+    },
+]
 
-users.forEach((value, key) => { value(key) })
+let totalStars = users.reduce((stars, user) => stars += user.stars, 0)
 
-let hasHernanObject = users.has(hernanObject)
-console.log('has Hernan Object: ', hasHernanObject)
+output.innerHTML += `<br> ${totalStars}`
 
-// Set only contain values
-// There can only be one exact same value
-const fruit = new Set();
+// Map Example
 
-fruit.add('Banana')
-fruit.add('Apple')
-fruit.add('Apple')
-fruit.add('Apple')
-fruit.add('Orange')
+let userEmails = users.map(u => u.email)
 
-fruit.forEach(value => output.innerHTML += `<br> ${value}`)
+output.innerHTML += `<br>Emails: ${userEmails.join(', ')}`
